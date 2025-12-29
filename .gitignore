@@ -1,0 +1,6 @@
+echo "bin/" >> .gitignore
+echo ".idea/" >> .gitignore
+echo ".vscode/" >> .gitignore
+echo "*.exe" >> .gitignore
+echo "vendor/" >> .gitignore
+echo ".env" >> .gitignore
