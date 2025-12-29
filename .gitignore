@@ -1,6 +1,22 @@
-echo "bin/" >> .gitignore
-echo ".idea/" >> .gitignore
-echo ".vscode/" >> .gitignore
-echo "*.exe" >> .gitignore
-echo "vendor/" >> .gitignore
-echo ".env" >> .gitignore
+# Binary ve Derleme Dosyaları
+bin/
+*.exe
+*.dll
+*.so
+*.dylib
+main
+
+# IDE ve Editör Dosyaları
+.idea/
+.vscode/
+*.swp
+
+# Go Bağımlılıkları (Genelde atılmaz ama vendor kullanırsak diye)
+vendor/
+
+# Çevresel Değişkenler (ŞİFRELER BURADA OLACAK, ASLA GITHUB'A GİTMEMELİ)
+.env
+
+# İşletim Sistemi Dosyaları
+.DS_Store
+Thumbs.db
