@@ -4,6 +4,8 @@ import (
 	"log"
 
 	"github.com/dogancankaygusuz/game-backend-service/internal/config"
+	"github.com/dogancankaygusuz/game-backend-service/internal/domain"
+	"github.com/dogancankaygusuz/game-backend-service/internal/handler"
 	"github.com/dogancankaygusuz/game-backend-service/internal/repository"
 
 	"github.com/gofiber/fiber/v2"
@@ -12,31 +14,21 @@ import (
 )
 
 func main() {
-	// 1. Konfigürasyonu Yükle
 	cfg := config.LoadConfig()
-
-	// 2. Veritabanına Bağlan
 	repository.ConnectDB(cfg.DBPath)
 
-	// 3. Fiber Uygulamasını Başlat
-	app := fiber.New(fiber.Config{
-		AppName: "Game Backend Service",
-	})
+	// Veritabanı Tablosunu Oluştur (Migration)
+	repository.DB.AutoMigrate(&domain.Player{})
+	log.Println("✅ Database migrations completed")
 
-	// Middleware'ler
+	app := fiber.New()
 	app.Use(logger.New())
 	app.Use(recover.New())
 
 	// Rotalar
-	app.Get("/health", func(c *fiber.Ctx) error {
-		return c.Status(200).JSON(fiber.Map{
-			"status":  "online",
-			"message": "Game Backend Service is running",
-			"db":      "connected (sqlite)",
-		})
-	})
+	auth := app.Group("/auth")
+	auth.Post("/register", handler.RegisterHandler)
+	auth.Post("/login", handler.LoginHandler)
 
-	// Sunucuyu Dinle
-	log.Printf("Server starting on port %s", cfg.ServerPort)
 	log.Fatal(app.Listen(":" + cfg.ServerPort))
 }
