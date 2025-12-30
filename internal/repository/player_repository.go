@@ -18,3 +18,12 @@ func FindPlayerByUsername(username string) (*domain.Player, error) {
 	}
 	return &player, nil
 }
+
+func FindPlayerByID(id string) (*domain.Player, error) {
+	var player domain.Player
+	err := DB.Where("id = ?", id).First(&player).Error
+	if err != nil {
+		return nil, err
+	}
+	return &player, nil
+}
