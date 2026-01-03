@@ -39,6 +39,7 @@ func main() {
 	api := app.Group("/api", middleware.Protected())
 
 	api.Get("/profile", handler.GetProfile) // <-- YENİ ROTA
-
+	api.Post("/leaderboard/submit", handler.SubmitScoreHandler)
+	api.Get("/leaderboard/top", handler.GetLeaderboardHandler)
 	log.Fatal(app.Listen(":" + cfg.ServerPort))
 }

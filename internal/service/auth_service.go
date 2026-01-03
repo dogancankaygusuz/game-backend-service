@@ -4,6 +4,7 @@ import (
 	"errors"
 	"time"
 
+	"github.com/dogancankaygusuz/game-backend-service/internal/config"
 	"github.com/dogancankaygusuz/game-backend-service/internal/domain"
 	"github.com/dogancankaygusuz/game-backend-service/internal/repository"
 
@@ -50,6 +51,8 @@ func Login(username, password string) (string, error) {
 		return "", errors.New("invalid credentials")
 	}
 
+	cfg := config.LoadConfig()
+
 	// Token üret
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"player_id": player.ID,
@@ -57,5 +60,12 @@ func Login(username, password string) (string, error) {
 		"exp":       time.Now().Add(time.Hour * 72).Unix(),
 	})
 
-	return token.SignedString(jwtSecret)
+	// Config'den gelen secret ile imzala
+	tokenString, err := token.SignedString([]byte(cfg.JWTSecret))
+	if err != nil {
+		return "", err
+	}
+
+	return tokenString, nil
+
 }

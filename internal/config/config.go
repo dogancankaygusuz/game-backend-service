@@ -8,7 +8,8 @@ import (
 // Config yapısı tüm uygulama ayarlarını tutar
 type Config struct {
 	ServerPort string
-	DBPath     string // SQLite dosya yolu
+	DBPath     string
+	JWTSecret  string
 }
 
 // LoadConfig ortam değişkenlerini okur veya varsayılanları atar
@@ -16,6 +17,7 @@ func LoadConfig() *Config {
 	return &Config{
 		ServerPort: getEnv("SERVER_PORT", "8080"),
 		DBPath:     getEnv("DB_PATH", "game.db"), // Proje ana dizininde oluşacak
+		JWTSecret:  getEnv("JWT_SECRET", "super-secret-game-key-2025"),
 	}
 }
 
