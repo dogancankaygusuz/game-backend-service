@@ -1,12 +1,25 @@
 package service
 
 import (
+	"errors"
+
 	"github.com/dogancankaygusuz/game-backend-service/internal/domain"
 	"github.com/dogancankaygusuz/game-backend-service/internal/repository"
 )
 
 // SubmitScore: Eğer yeni skor eskisinden yüksekse günceller
 func SubmitScore(playerID string, score int) (*domain.Player, error) {
+	// 1. Negatif skor kontrolü
+	if score < 0 {
+		return nil, errors.New("score cannot be negative") // errors paketini import etmeyi unutma
+	}
+
+	// 2. İmkansız skor kontrolü (Örn: Oyunun max puanı 1 milyon ise)
+	const MAX_POSSIBLE_SCORE = 1000000
+	if score > MAX_POSSIBLE_SCORE {
+		return nil, errors.New("score exceeds maximum possible value (cheating detected)")
+	}
+
 	// 1. Mevcut oyuncuyu bul
 	player, err := repository.FindPlayerByID(playerID)
 	if err != nil {
