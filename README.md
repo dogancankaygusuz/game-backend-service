@@ -5,7 +5,7 @@
 ![Database](https://img.shields.io/badge/SQLite-GORM-blue?style=flat)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-High-performance, scalable, and secure backend service designed for multiplayer games. Built with **Go**, **Fiber**, and **Clean Architecture** principles.
+Çok oyunculu oyunlar için tasarlanmış, yüksek performanslı, ölçeklenebilir ve güvenli backend hizmeti. Go, Fiber ve Temiz Mimari prensipleriyle geliştirilmiştir.
 
 ## 🚀 Proje Hakkında
 Bu proje, mobil veya PC oyunları için gerekli olan merkezi sunucu ihtiyaçlarını karşılamak üzere geliştirilmiştir. Oyuncu kimlik doğrulama, güvenli skor takibi, liderlik tablosu ve temel hile koruma (Anti-Cheat) mekanizmalarını içerir.
@@ -21,7 +21,7 @@ Bu proje, mobil veya PC oyunları için gerekli olan merkezi sunucu ihtiyaçlar�
 
 - **🏆 Liderlik Tablosu (Leaderboard):**
   - Gerçek zamanlı skor güncelleme.
-  - En yüksek puana sahip oyuncuların listelenmesi (Top 10).
+  - En yüksek puana sahip oyuncuların listelenmesi.
   - Skorun sadece rekor kırıldığında güncellenmesi mantığı.
 
 - **🛡️ Güvenlik ve Anti-Cheat:**
@@ -40,19 +40,6 @@ Bu proje, mobil veya PC oyunları için gerekli olan merkezi sunucu ihtiyaçlar�
 - **Veritabanı:** SQLite (GORM ORM ile)
 - **Konfigürasyon:** Standart Go yapılandırması
 - **Güvenlik:** JWT, Rate Limiter
-
-## 📂 Proje Mimarisi
-
-game-backend-service/
-├── cmd/server/ # Uygulamanın giriş noktası (Main)
-├── internal/
-│ ├── config/ # Ortam değişkenleri ve ayarlar
-│ ├── domain/ # Veri modelleri (Structs)
-│ ├── handler/ # HTTP isteklerini karşılayan katman
-│ ├── middleware/ # JWT ve Rate Limit ara katmanları
-│ ├── repository/ # Veritabanı işlemleri
-│ └── service/ # İş mantığı (Business Logic)
-└── go.mod # Bağımlılık yönetimi
 
 ## 🔌 API Dokümantasyonu
 
